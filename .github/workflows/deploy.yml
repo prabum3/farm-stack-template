@@ -1,6 +1,24 @@
 name: deploy
 on:
   push:
+  
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Azure login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+    - name: test-run
+      run: |
+        az account show
+        az group list
+        pwd 
+    
 
 
 
