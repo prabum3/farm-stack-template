@@ -1,0 +1,4 @@
+{
+  "project_name": "{{ cookiecutter.project_name }}",
+  "container_registry": "docker.io"
+}

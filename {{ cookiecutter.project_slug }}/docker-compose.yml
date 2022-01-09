@@ -1,14 +1,14 @@
 version: '3.7'
 services:
   nginx-reverse-proxy:
-    image: prabum3.azurecr.io/nginx-react-image:latest
+    image: {{cookiecutter.container_registry}}/nginx-react-image:latest
     ports:
       - 80:80
     depends_on:
       - "backend"
 
   backend:
-    image: prabum3.azurecr.io/fastapi-image:latest
+    image: {{cookiecutter.container_registry}}/fastapi-image:latest
     expose:
      - "8000"
 
