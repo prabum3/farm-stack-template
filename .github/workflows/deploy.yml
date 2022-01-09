@@ -21,25 +21,25 @@ jobs:
 
     - name: Login into container registry
       run: |
-        az acr login --name prabum3.azurecr.io
+        az acr login --name ${{ secrets.CONTAINER_REGISTRY_NAME }}
 
     - name: Build and push docker image (nginx-reverse-proxy)
       run: |
        cd ./nginx/production
-       docker image build -t prabum3.azurecr.io/nginx-react-image:latest .
-       docker push prabum3.azurecr.io/nginx-react-image:latest
+       docker image build -t ${{ secrets.CONTAINER_REGISTRY_NAME }}/nginx-react-image:latest .
+       docker push ${{ secrets.CONTAINER_REGISTRY_NAME }}/nginx-react-image:latest
 
     - name: Build and push docker image (fastapi)
       run: |
        cd ./server
-       docker image build -t prabum3.azurecr.io/fastapi-image:latest .
-       docker push prabum3.azurecr.io/fastapi-image:latest
+       docker image build -t ${{ secrets.CONTAINER_REGISTRY_NAME }}/fastapi-image:latest .
+       docker push ${{ secrets.CONTAINER_REGISTRY_NAME }}/fastapi-image:latest
 
     - name: Set connection string
       run: |
-       az webapp config appsettings set -g prabum_rg -n test-app-container --settings MONGODB_URL="${{ secrets.MONGODB_URL }}"
+       az webapp config appsettings set -g ${{ secrets.RESOURCE_GROUP_NAME }} -n test-app-container --settings MONGODB_URL="${{ secrets.MONGODB_URL }}"
 
     - name: Deploy with docker-compose
       run: |
-       az webapp config container set --resource-group prabum_rg  --name test-app-container --multicontainer-config-type compose --multicontainer-config-file docker-compose.yml
+       az webapp config container set --resource-group ${{ secrets.RESOURCE_GROUP_NAME }} --name test-app-container --multicontainer-config-type compose --multicontainer-config-file docker-compose.yml
 
