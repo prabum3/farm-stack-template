@@ -38,7 +38,7 @@ jobs:
 
     - name: Set connection string
       run: |
-       az webapp config connection-string set -g prabum_rg -n test-app-container -t custom --settings MONGODB_URL="${{ secrets.MONGODB_URL }}"
+       az webapp config appsettings set -g prabum_rg -n test-app-container --settings MONGODB_URL="${{ secrets.MONGODB_URL }}"
 
     - name: Deploy with docker-compose
       run: |
