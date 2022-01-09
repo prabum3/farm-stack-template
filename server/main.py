@@ -2,8 +2,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from db.utils import connect_to_mongo,close_mongo_connection
 from db.mongodb import db
+import os
+
 
 app = FastAPI()
+items = {}
 
 app.add_middleware(
     CORSMiddleware,
@@ -16,6 +19,7 @@ app.add_middleware(
 @app.on_event("startup")
 async def startup_event():
   await connect_to_mongo()
+  items.count = 0
 
 @app.on_event("shutdown")
 async def shutdown_event():
@@ -25,7 +29,9 @@ async def shutdown_event():
 @app.get("/api")
 async def root():
   database = db.client.stacks
-  document = {'pk': 'nothine','new':'yes'}
+  document = {'pk': 'nothine','new':'yes','count':items.count}
+  items.count+=1
   result = await database.dummy.insert_one(document)
   print(result)
-  return {"content":"Hello from FastAPI!!"}
+  envValue = os.getenv("mongodb","notfound")
+  return {"content":f"Hello from FastAPI!! {envValue}"}
