@@ -1,4 +1,4 @@
 {
-  "project_name": "{{ cookiecutter.project_name }}",
+  "project_slug": "{{ cookiecutter.project_slug }}",
   "container_registry": "docker.io"
 }
