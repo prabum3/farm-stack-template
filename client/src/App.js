@@ -7,30 +7,20 @@ function App() {
 
   const [message, setMessage] = useState(null)
 
-  useEffect(() => {
-    const pingServer = async function () {
-      const resp = await axios.get("/api")
-      console.log(resp)
-      setMessage(resp.data.content)
-    }
-    pingServer()
-  }, [])
+  const handleClick = async () => {
+    const resp = await axios.get("/api")
+    setMessage(resp.data.content)
+  }
 
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          {JSON.stringify(message)}
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <button className="bg-blue-500 text-white p-2 rounded-xl" onClick={() => handleClick()}> Say Hi </button>
+        {message &&
+        <p className="my-2">
+          {message}
+        </p> }
       </header>
     </div>
   );

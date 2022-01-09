@@ -34,6 +34,4 @@ async def root():
   document = {'pk': f"no{ccount}no",'new':'yes','count':ccount}
   items["count"]+=1
   result = await database.dummy.insert_one(document)
-  print(result)
-  envValue = os.getenv("mongodb","notfound")
-  return {"content":f"Hello from FastAPI!! {envValue}"}
+  return {"content":"Hello from FastAPI!!"}

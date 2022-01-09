@@ -9,6 +9,6 @@ services:
 
   backend:
     image: prabum3.azurecr.io/fastapi-image:latest
-    ports:
-     - 8000:8000
+    expose:
+     - "8000"
 
