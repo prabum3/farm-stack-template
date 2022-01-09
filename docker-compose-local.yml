@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+  nginx:
+    depends_on:
+      - frontend
+      - backend
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx/local
+    command: [nginx-debug, '-g', 'daemon off;']
+    ports:
+      - "5400:80"
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+     - "8000:8000"
