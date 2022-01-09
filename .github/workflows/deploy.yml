@@ -20,6 +20,10 @@ jobs:
         npm run test
         npm run build
     
+    - name: Test working dir
+      run: |
+        pwd
+    
 
 
 
