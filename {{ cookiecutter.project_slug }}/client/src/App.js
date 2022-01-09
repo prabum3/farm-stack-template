@@ -7,7 +7,7 @@ function App () {
   const [message, setMessage] = useState(null)
 
   const handleClick = async () => {
-    const resp = await axios.get('/api')
+    const resp = await axios.get('/api/v1')
     setMessage(resp.data.content)
   }
 
@@ -15,7 +15,7 @@ function App () {
     <div className='App'>
       <header className='App-header'>
         <img src={logo} className='App-logo' alt='logo' />
-        <button className='bg-blue-500 text-white p-2 rounded-xl' onClick={() => handleClick()}> Say Hi </button>
+        <button className='bg-black text-white p-2 rounded-xl' onClick={() => handleClick()}> Say Hi </button>
         {message &&
           <p className='my-2'>
             {message}

@@ -2,8 +2,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from db.utils import connect_to_mongo,close_mongo_connection
 from db.mongodb import db
+from settings import config
 
-app = FastAPI()
+app = FastAPI(title=config.PROJECT_NAME, docs_url="/api/docs", openapi_url="/api")
 
 app.add_middleware(
     CORSMiddleware,
@@ -22,6 +23,6 @@ async def shutdown_event():
   await close_mongo_connection()
 
 
-@app.get("/api")
+@app.get("/api/v1")
 async def root():
   return {"content":"Hello from FastAPI!!"}

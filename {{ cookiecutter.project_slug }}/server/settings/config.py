@@ -1,6 +1,7 @@
 import os
 from databases import DatabaseURL
 
+PROJECT_NAME = {{cookiecutter.project_slug}}
 MONGODB_URL = os.getenv("MONGODB_URL", "")
 if not MONGODB_URL:
     MONGODB_URL = DatabaseURL(
