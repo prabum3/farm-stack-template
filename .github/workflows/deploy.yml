@@ -19,6 +19,22 @@ jobs:
         npm install
         npm run test
         npm run build
+        
+    - name: Login into container registry
+      run: |
+        az acr login --name prabum3.azurecr.io
+        
+    - name: Build and push docker image (nginx-reverse-proxy)
+      run: |
+       cd ./nginx/production
+       docker image build -t prabum3.azurecr.io/nginx-react-image:latest .
+       docker push prabum3.azurecr.io/nginx-react-image:latest
+       
+    - name: Build and push docker image (fastapi)
+      run: |
+       cd ./server
+       docker image build -t prabum3.azurecr.io/fastapi-image:latest .
+       docker push prabum3.azurecr.io/fastapi-image:latest
     
     - name: Test working dir
       run: |
