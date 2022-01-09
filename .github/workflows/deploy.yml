@@ -1,4 +1,4 @@
-name: deploy
+name: build and deploy
 on:
   push:
   
@@ -13,11 +13,12 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
         
-    - name: test-run
+    - name: Test and Build React App
       run: |
-        az account show
-        az group list
-        pwd 
+        cd ./client
+        npm run install
+        npm run test
+        npm run build
     
 
 
