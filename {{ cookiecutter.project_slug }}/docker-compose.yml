@@ -1,14 +1,14 @@
 version: '3.7'
 services:
   nginx-reverse-proxy:
-    image: {{cookiecutter.container_registry}}/nginx-react-image:latest
+    image: {{cookiecutter.container_registry}}/{{cookiecutter.project_slug}}-nginx-react-image:latest
     ports:
       - 80:80
     depends_on:
       - "backend"
 
   backend:
-    image: {{cookiecutter.container_registry}}/fastapi-image:latest
+    image: {{cookiecutter.container_registry}}/{{cookiecutter.project_slug}}-fastapi-image:latest
     expose:
      - "8000"
 
